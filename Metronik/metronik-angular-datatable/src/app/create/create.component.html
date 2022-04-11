@@ -1,0 +1,124 @@
+<app-header></app-header>
+
+<button id="submitRequestButton" *ngIf="orderForm && orderDetailsForm" mat-raised-button ngDefaultControl="false"  [disabled]="orderForm.form.invalid || orderDetailsForm.form.invalid" (click)="createOrder()"  color="warn">Submit Request</button>
+
+    <mat-tab-group >
+      <mat-tab label="Order Product" >
+
+        <div class="formControls">
+
+          <button mat-raised-button ngDefaultControl="false"  (click)="addOrderProductForm()"  color="primary">Add New Order Product Form</button>
+
+        </div>
+        <form  id="ngForm" #orderForm="ngForm" class="form" (ngSubmit)="createOrder()" autocomplete="off" >
+
+        <div *ngFor="let product of request.productsDto; let productNum=index">
+          <mat-card >
+
+              <mat-card-title>{{ "Order Product Form " + (1+productNum).toString()}}</mat-card-title>
+
+              <mat-card-content>
+
+                <mat-form-field class="inputfield" appearance="outline">
+                  <mat-label>Product GTIN</mat-label>
+                  <input required maxlength="14" minlength="14" name="gtin" [(ngModel)]="product.gtin" matInput placeholder="" >
+                  <mat-error>Required, Length exactly 14</mat-error>
+                </mat-form-field>
+
+                <mat-form-field class="inputfield" appearance="outline">
+                  <mat-label>Quantity of ICs / Identifiers</mat-label>
+                  <input required name="{{'quantity' + productNum.toString()}}" [(ngModel)]="product.quantity" type="number" matInput placeholder="" >
+                  <mat-error>Required</mat-error>
+                </mat-form-field>
+
+
+                <mat-form-field class="inputfield" appearance="outline">
+                  <mat-label>IC template ID</mat-label>
+                  <input required name="{{'templateId' + productNum.toString()}}" [(ngModel)]="product.templateId" matInput placeholder="" >
+                  <mat-error>Required</mat-error>
+                </mat-form-field>
+
+
+                <mat-form-field class="inputfield" appearance="outline">
+                  <mat-label>Method of generating serial numbers</mat-label>
+                  <input required name="{{'serialNumberType'  + productNum.toString()}}" [(ngModel)]="product.serialNumberType" matInput placeholder="SELF_MADE" >
+                  <mat-hint>Set to SELF_MADE to enable adding serial numbers</mat-hint>
+                  <mat-error>Required</mat-error>
+                </mat-form-field>
+
+                <!--                  <div formArrayName="{{'serialNumbers' + (1+i).toString()}}">-->
+                <div>
+                  <ng-container *ngFor="let serialNumbersDto of product.serialNumbersDto; let j=index">
+                    <mat-form-field class="serialinputfield"  appearance="outline">
+                      <mat-label>Serial number</mat-label>
+                      <input required name="{{'serialNumber' + j.toString() }}" [(ngModel)]="serialNumbersDto.serialNumber"  matInput placeholder="" >
+                      <mat-hint>Empty serial fields will be ignored</mat-hint>
+                    </mat-form-field>
+                  </ng-container>
+                </div>
+              </mat-card-content>
+
+            <div class="addSerialButton">
+              <button mat-raised-button [disabled]="product.serialNumberType != 'SELF_MADE'" type='button' (click)="addSerial(productNum)" color="primary">Add Serial Number</button>
+            </div>
+          </mat-card>
+        </div>
+        </form>
+      </mat-tab>
+
+
+
+      <mat-tab  label="Order Details">
+        <form  #orderDetailsForm="ngForm" class="order-details-form" (ngSubmit)="createOrder()" autocomplete="off" >
+
+          <mat-form-field class="inputfield" appearance="outline">
+            <mat-label>Factory Identifier (GLN)</mat-label>
+            <input required name="factoryId" [(ngModel)]="request.orderDetailsDto.factoryId" matInput placeholder="" >
+          </mat-form-field>
+
+          <mat-form-field class="inputfield" appearance="outline">
+            <mat-label>Factory Name</mat-label>
+            <input name="factoryName" [(ngModel)]="request.orderDetailsDto.factoryName" matInput placeholder="" >
+          </mat-form-field>
+
+          <mat-form-field class="inputfield" appearance="outline">
+            <mat-label>Factory Address</mat-label>
+            <input  name="factoryAddress" [(ngModel)]="request.orderDetailsDto.factoryAddress" matInput placeholder="SELF_MADE" >
+          </mat-form-field>
+
+          <mat-form-field class="inputfield" appearance="outline">
+            <mat-label>Factory Country</mat-label>
+            <input required name="factoryCountry" [(ngModel)]="request.orderDetailsDto.factoryCountry" matInput placeholder="" >
+          </mat-form-field>
+
+          <mat-form-field class="inputfield" appearance="outline">
+            <mat-label>Line Identifier</mat-label>
+            <input name="productionLineId" [(ngModel)]="request.orderDetailsDto.productionLineId" matInput placeholder="" >
+          </mat-form-field>
+
+          <mat-form-field class="inputfield" appearance="outline">
+            <mat-label>Product Code</mat-label>
+            <input required name="productCode" [(ngModel)]="request.orderDetailsDto.productCode" matInput placeholder="" >
+          </mat-form-field>
+
+          <mat-form-field class="inputfield" appearance="outline">
+            <mat-label>Product Description</mat-label>
+            <input required name="productDescription" [(ngModel)]="request.orderDetailsDto.productDescription" matInput placeholder="" >
+          </mat-form-field>
+
+
+          <mat-form-field class="inputfield" appearance="outline">
+            <mat-label>PO Number</mat-label>
+            <input name="poNumber" [(ngModel)]="request.orderDetailsDto.poNumber" matInput placeholder="" >
+          </mat-form-field>
+
+
+          <mat-form-field class="inputfield" appearance="outline">
+            <mat-label>Expected Start Date</mat-label>
+            <input name="expectedStartDate" [(ngModel)]="request.orderDetailsDto.expectedStartDate" matInput placeholder="" >
+          </mat-form-field>
+        </form>
+      </mat-tab>
+
+    </mat-tab-group>
+

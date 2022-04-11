@@ -1,0 +1,61 @@
+.inputfield{
+  padding-right: 1em;
+  width: 30em;
+}
+
+form{
+  padding-left: 1.25em;
+  padding-right: 1.25em
+}
+
+mat-form-field{
+  margin-bottom: 0 !important;
+}
+
+.serialinputfield{
+  margin-right: 1.25em;
+}
+
+mat-panel-title{
+  width: 100%;
+}
+
+.addSerialButton{
+  margin-left: 1.25em;
+
+}
+.spacer {
+  flex: 1 1 auto;
+}
+
+
+.formControls{
+  margin: 2em;
+
+}
+.formControls > button{
+  margin-right: 2em;
+}
+
+mat-card{
+  /*border-bottom: solid;*/
+  margin: 1em 1em 2em 1em;
+  background-color: #fafafa;
+}
+
+.update-button{
+  margin-bottom: 1.25em;
+}
+.order-details-form{
+  padding-top: 2em;
+}
+
+.update-details-button{
+  margin-bottom:  1.25em;
+}
+
+.material-icons{
+  cursor: pointer;
+  float: right;
+}
+

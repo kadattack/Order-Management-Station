@@ -1,0 +1,151 @@
+<app-header></app-header>
+
+
+
+<mat-accordion >
+  <mat-expansion-panel *ngFor="let order of orderArray; let ordernum=index" hideToggle >
+    <mat-expansion-panel-header>
+      <mat-panel-title >
+        <span>Order details of id {{order.orderId}}</span>
+        <span class="spacer"></span>
+        <span class="material-icons" (click)="deleteOrder(order.id)" >
+                delete
+            </span>
+      </mat-panel-title>
+      <mat-panel-description>
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+
+    <mat-tab-group >
+      <mat-tab label="Order Product" >
+
+        <div class="formControls">
+          <!--              <button mat-raised-button ngDefaultControl="false"  (click)="addOrderProductForm()"  color="primary">Add New Order Product Form</button>-->
+        </div>
+        <div *ngFor="let orderProductInputs of order.emissionRequestDto.productsDto; let productNum=index">
+          <mat-card >
+          <form  #orderForm="ngForm" class="form" (ngSubmit)="editProduct(ordernum, productNum)" autocomplete="off" >
+
+          <button class="update-button" [disabled]="!orderForm.dirty || orderForm.invalid" mat-raised-button  color="warn">Update Order Product From</button>
+            <span class="material-icons" (click)="deleteProduct(ordernum, productNum)" >
+                delete
+            </span>
+
+            <mat-card-title>{{ "Order Product Form " + (1+productNum).toString()}}</mat-card-title>
+
+            <mat-card-content>
+
+              <mat-form-field class="inputfield" appearance="outline">
+                <mat-label>Product GTIN</mat-label>
+                <input required maxlength="14" minlength="14" name="gtin" [(ngModel)]="orderProductInputs.gtin" matInput placeholder="" >
+                <mat-error>Required, Length exactly 14</mat-error>
+              </mat-form-field>
+
+              <mat-form-field class="inputfield" appearance="outline">
+                <mat-label>Quantity of ICs / Identifiers</mat-label>
+                <input required name="quantity" [(ngModel)]="orderProductInputs.quantity" type="number" matInput placeholder="" >
+                <mat-error>Required</mat-error>
+              </mat-form-field>
+
+
+              <mat-form-field class="inputfield" appearance="outline">
+                <mat-label>IC template ID</mat-label>
+                <input required name="templateId" [(ngModel)]="orderProductInputs.templateId" matInput placeholder="" >
+                <mat-error>Required</mat-error>
+              </mat-form-field>
+
+
+              <mat-form-field class="inputfield" appearance="outline">
+                <mat-label>Method of generating serial numbers</mat-label>
+                <input required name="serialNumberType" [(ngModel)]="orderProductInputs.serialNumberType" matInput placeholder="SELF_MADE" >
+                <mat-hint>Set to SELF_MADE to enable adding serial numbers</mat-hint>
+                <mat-error>Required</mat-error>
+              </mat-form-field>
+
+              <!--                  <div formArrayName="{{'serialNumbers' + (1+i).toString()}}">-->
+              <div>
+                <ng-container *ngFor="let serialNumbersDto of orderProductInputs.serialNumbersDto; let j=index">
+                  <mat-form-field class="serialinputfield"  appearance="outline">
+                    <mat-label>Serial number</mat-label>
+                    <input required name="{{'serialNumber' + j.toString() }}" [(ngModel)]="serialNumbersDto.serialNumber"  matInput placeholder="" >
+                    <mat-hint>Empty serial fields will be ignored</mat-hint>
+                  </mat-form-field>
+                </ng-container>
+              </div>
+            </mat-card-content>
+            </form>
+
+            <div class="addSerialButton">
+              <button mat-raised-button [disabled]="orderProductInputs.serialNumberType != 'SELF_MADE'" (click)="addSerial(ordernum, productNum)" color="primary">Add Serial Number</button>
+            </div>
+          </mat-card>
+        </div>
+      </mat-tab>
+
+
+
+      <mat-tab  label="Order Details">
+        <form  #orderDetailsForm="ngForm" class="order-details-form" (ngSubmit)="editOrderDetails(ordernum)" autocomplete="off" >
+          <div>
+            <button class="update-details-button" [disabled]="!orderDetailsForm.dirty || orderDetailsForm.invalid"  mat-raised-button  color="warn">Update Order Details From</button>
+
+
+          </div>
+
+          <mat-form-field class="inputfield" appearance="outline">
+            <mat-label>Factory Identifier (GLN)</mat-label>
+            <input required name="factoryId" [(ngModel)]="order.emissionRequestDto.orderDetailsDto.factoryId" matInput placeholder="" >
+          </mat-form-field>
+
+          <mat-form-field class="inputfield" appearance="outline">
+            <mat-label>Factory Name</mat-label>
+            <input name="factoryName" [(ngModel)]="order.emissionRequestDto.orderDetailsDto.factoryName" matInput placeholder="" >
+          </mat-form-field>
+
+          <mat-form-field class="inputfield" appearance="outline">
+            <mat-label>Factory Address</mat-label>
+            <input  name="factoryAddress" [(ngModel)]="order.emissionRequestDto.orderDetailsDto.factoryAddress" matInput placeholder="SELF_MADE" >
+          </mat-form-field>
+
+          <mat-form-field class="inputfield" appearance="outline">
+            <mat-label>Factory Country</mat-label>
+            <input required name="factoryCountry" [(ngModel)]="order.emissionRequestDto.orderDetailsDto.factoryCountry" matInput placeholder="" >
+          </mat-form-field>
+
+          <mat-form-field class="inputfield" appearance="outline">
+            <mat-label>Line Identifier</mat-label>
+            <input name="productionLineId" [(ngModel)]="order.emissionRequestDto.orderDetailsDto.productionLineId" matInput placeholder="" >
+          </mat-form-field>
+
+          <mat-form-field class="inputfield" appearance="outline">
+            <mat-label>Product Code</mat-label>
+            <input required name="productCode" [(ngModel)]="order.emissionRequestDto.orderDetailsDto.productCode" matInput placeholder="" >
+          </mat-form-field>
+
+          <mat-form-field class="inputfield" appearance="outline">
+            <mat-label>Product Description</mat-label>
+            <input required name="productDescription" [(ngModel)]="order.emissionRequestDto.orderDetailsDto.productDescription" matInput placeholder="" >
+          </mat-form-field>
+
+
+          <mat-form-field class="inputfield" appearance="outline">
+            <mat-label>PO Number</mat-label>
+            <input name="poNumber" [(ngModel)]="order.emissionRequestDto.orderDetailsDto.poNumber" matInput placeholder="" >
+          </mat-form-field>
+
+
+          <mat-form-field class="inputfield" appearance="outline">
+            <mat-label>Expected Start Date</mat-label>
+            <input name="expectedStartDate" [(ngModel)]="order.emissionRequestDto.orderDetailsDto.expectedStartDate" matInput placeholder="" >
+          </mat-form-field>
+        </form>
+      </mat-tab>
+
+    </mat-tab-group>
+
+
+  </mat-expansion-panel>
+  <mat-expansion-panel (opened)="panelOpenState = true"
+                       (closed)="panelOpenState = false">
+  </mat-expansion-panel>
+</mat-accordion>

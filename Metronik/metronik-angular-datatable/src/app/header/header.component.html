@@ -1,0 +1,17 @@
+<p>
+  <mat-toolbar color="primary">
+  <span *ngIf="!(accountService.currentUser$ | async)">
+    <span>Please Log in with Oms ID</span>
+  </span>
+
+    <span id="headerSpan" *ngIf="(accountService.currentUser$ | async)">
+      <span>OmsID {{  (accountService.currentUser$ | async)?.omsId }}</span>
+          <button class="navbuttons" routerLink="/create" mat-raised-button color="primary" >Create Order</button>
+          <button class="navbuttons" routerLink="/edit" mat-raised-button  color="primary">Edit Orders</button>
+      <span class="spacer"></span>
+
+      <button mat-raised-button (click)="logout()" color="basic">Logout</button>
+    </span>
+
+  </mat-toolbar>
+</p>

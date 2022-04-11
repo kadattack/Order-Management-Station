@@ -1,0 +1,12 @@
+#headerSpan{
+  display: flex;
+  width: 100%;
+}
+
+.spacer {
+  flex-grow: 1;
+}
+
+.navbuttons{
+  margin-left: 3em;
+}
