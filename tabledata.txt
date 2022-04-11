@@ -1,0 +1,28 @@
+oms
+0645848
+
+
+
+orderdetails
+factid1	factname1	factadd1	factcunt1	prodlineid1	prodcode1	proddes1	ponum1	expstdate1	1
+
+factid2	factname2	factadd2	factcunt2	prodlineid2	prodcode2	proddes2	ponum2	expstdate2	2
+
+
+
+orderproduct
+01334567894339	3	SELF_MADE	1	1
+01334567894340	1	SELF_MADE	1	2	
+01334567894341	1	none	2	1
+
+
+
+serialnumbers
+<generated>	1	XT6c84e
+<generated>	1	2kY39Om
+<generated>	1	X4ebssJ
+<generated>	2	fl42ldG
+
+orders
+0645848	05f52b01-ba4b-4dc7-a94a-7846db44ac63	2156423
+0645848	05f52b01-ba4b-4dfs-546d-hg56db4gfd32	4156423
