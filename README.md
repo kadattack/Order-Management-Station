@@ -5,10 +5,10 @@ This is a assignment project for job application.
 ## Client
 The client is located in [metronik-angular-datatable](https://github.com/kadattack/Order-Management-Station/tree/main/Metronik/metronik-angular-datatable)
 To install the libraries use 
-`npm install`
-The node version used is v16.13.2
+`npm install`.
+The node version used is v16.13.2.
 Use `ng serve` to run it.
-The client sends requests to the server that is presumed to be located at https://localhost:7103/
+The client sends requests to the server that is presumed to be located at https://localhost:7103/ when running.
 If the server is not running on port 7103 then you can change it on the client in either
 [environment.prod.ts](https://github.com/kadattack/Order-Management-Station/blob/main/Metronik/metronik-angular-datatable/src/environments/environment.prod.ts) 
 or [environment.ts](https://github.com/kadattack/Order-Management-Station/blob/main/Metronik/metronik-angular-datatable/src/environments/environment.ts) 
